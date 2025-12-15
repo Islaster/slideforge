@@ -2,9 +2,9 @@
 
 import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function Form() {
+  const router = useRouter();
   const [state, setState] = useState({
     company: "",
     desc: "",
@@ -43,6 +43,7 @@ export default function Form() {
       console.log(data);
 
       localStorage.setItem("planner-input", JSON.stringify(data.calendar));
+      router.push("/view");
     } catch (err) {
       console.log(err);
     }
