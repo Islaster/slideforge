@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reddit Content Calendar Generator
 
-## Getting Started
+This project is a small web app that generates realistic Reddit content calendars (posts + threaded comments) based on company context, personas, subreddits, and target queries. It is designed as a planning and simulation tool, not a direct Reddit automation script.
 
-First, run the development server:
+The goal is to produce believable, human-sounding Reddit threads that could plausibly drive engagement and inbound interest over time.
+
+---
+
+## Features
+
+- Generate weekly Reddit content calendars
+- Supports multiple personas with distinct voices
+- Produces posts and threaded comment conversations
+- Subreddit-aware content generation
+- Stress-test mode for larger output batches
+- Clean, readable calendar viewer UI
+- Serverless API compatible with Vercel
+
+---
+
+## Tech Stack
+
+- **Next.js (App Router)**
+- **React**
+- **TypeScript**
+- **Vercel Serverless Functions**
+- **LocalStorage** for client-side persistence
+
+---
+
+## Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+app/
+├─ api/
+│ └─ send/
+│ └─ route.ts # Calendar generation API
+├─ form/
+│ └─ page.tsx # Input form
+├─ view/
+│ └─ page.tsx # Calendar viewer
+components/
+└─ CalendarViewer.tsx # Renders posts + comments
+server/
+├─ controller/
+└─ contentPlannerController.ts # Core generation logic
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. User fills out the form with:
 
-## Learn More
+   - Company info
+   - Personas
+   - Subreddits
+   - Target queries
+   - Posts per week
 
-To learn more about Next.js, take a look at the following resources:
+2. The form submits data to `/api/send`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. The API generates:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - A list of Reddit-style posts
+   - A set of threaded comments tied to each post
 
-## Deploy on Vercel
+4. The resulting calendar is saved to `localStorage`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. The `/view` page reads from `localStorage` and displays the calendar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This separation keeps the API stateless and the UI simple.
+
+---
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open:
+
+Form: http://localhost:3000/form
+
+Viewer: http://localhost:3000/view
+
+## Notes on Design Decisions
+
+The generator is modular to allow tuning of personas, tone, and structure independently.
+
+Content variation is controlled to avoid overly repetitive or obviously generated output.
+
+LocalStorage is used to avoid adding a database for a lightweight demo.
+
+The UI prioritizes readability so evaluators can quickly assess content quality.
+
+## Known Limitations
+
+Stress tests reveal some repetition in phrasing at high volumes.
+
+Personas do not yet maintain long-term memory across weeks.
+
+No persistence beyond the browser session.
+
+These were tradeoffs made to keep the scope focused.
+
+## Demo
+
+A short demo video is included in the submission showing:
+
+- Form input
+
+- Calendar generation
+
+- Output rendering
+
+[view the demo](https://www.loom.com/share/fbd82cd550844325b81fb07420ab8247)
+
+## Disclaimer
+
+This project is intended for planning, testing, and simulation purposes only. It does not post to Reddit or interact with Reddit’s API.
+
+---
