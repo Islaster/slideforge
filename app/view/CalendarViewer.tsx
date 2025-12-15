@@ -28,7 +28,7 @@ export default function CalendarViewer({ calendar }: { calendar: Calendar }) {
   const { posts, comments } = calendar;
 
   // Group comments by post
-  const grouped = posts.reduce((acc: any, post: any) => {
+  const grouped = posts.reduce((acc: Record<number, Comment[]>, post: Post) => {
     acc[post.id] = comments.filter((c) => c.post_id === post.id);
     return acc;
   }, {});
