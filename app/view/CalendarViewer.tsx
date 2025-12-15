@@ -1,3 +1,5 @@
+"use client";
+
 type Post = {
   id: number;
   subReddit: string;

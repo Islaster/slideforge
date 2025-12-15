@@ -97,9 +97,8 @@ export default function Form() {
         onChange={handleChange}
         required
       />
-      <Link href="/view">
-        <button type="submit"> generate schedule</button>
-      </Link>
+
+      <button type="submit"> generate schedule</button>
     </form>
   );
 }
