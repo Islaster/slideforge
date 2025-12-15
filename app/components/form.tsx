@@ -22,7 +22,7 @@ export default function Form() {
   async function handleSubmit(env: FormEvent<HTMLFormElement>) {
     env.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/send", {
+      const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
