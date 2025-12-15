@@ -1,4 +1,28 @@
-export default function CalendarViewer({ calendar }) {
+type Post = {
+  id: number;
+  subReddit: string;
+  title: string;
+  body: string;
+  author_username: string;
+  timestamp: string;
+  keyword_ids: string[];
+};
+
+type Comment = {
+  id: number;
+  post_id: number;
+  parent_comment_id: number;
+  comment_text: string;
+  username: string;
+  timestamp: string;
+};
+
+type Calendar = {
+  posts: Post[];
+  comments: Comment[];
+};
+
+export default function CalendarViewer({ calendar }: { calendar: Calendar }) {
   if (!calendar) return <p>No calendar data found.</p>;
 
   const { posts, comments } = calendar;
@@ -35,7 +59,7 @@ export default function CalendarViewer({ calendar }) {
               <p className="text-sm text-gray-500">No comments yet.</p>
             )}
 
-            {grouped[post.id].map((comment, index) => (
+            {grouped[post.id].map((comment: Comment, index: number) => (
               <div
                 key={comment.id}
                 className="ml-4 pl-4 border-l-2 border-gray-200 py-2"
