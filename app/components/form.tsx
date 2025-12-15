@@ -40,7 +40,6 @@ export default function Form() {
         return;
       }
       const data = await res.json();
-      console.log(data);
 
       localStorage.setItem("planner-input", JSON.stringify(data.calendar));
       router.push("/view");
